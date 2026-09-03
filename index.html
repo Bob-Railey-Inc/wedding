@@ -660,19 +660,26 @@ textarea::placeholder { color: #ccc; }
 .roulette { background: white; border: 1px solid rgba(43,53,175,0.1); padding: 40px; margin-bottom: 20px; transform: rotate(0.3deg); box-shadow: 3px 3px 0 var(--blue-grey); text-align: center; }
 .roulette-title { font-family: 'DM Sans', sans-serif; font-size: 26px; font-weight: 700; letter-spacing: -0.5px; color: var(--pink); margin-bottom: 14px; }
 .roulette-intro { font-family: 'Courier Prime', monospace; font-size: 14px; color: #555; line-height: 1.8; margin-bottom: 28px; }
-.wheel-wrap { position: relative; width: 100%; max-width: 360px; margin: 0 auto 28px; }
-.wheel-wrap::before {
-  content: ''; position: absolute; top: -4px; left: 50%; transform: translateX(-50%);
-  width: 0; height: 0; border-left: 13px solid transparent; border-right: 13px solid transparent;
-  border-top: 26px solid var(--pink); z-index: 3; filter: drop-shadow(0 2px 0 rgba(43,53,175,0.25));
+/* Only the right quarter of the wheel shows; the rest runs off the left of the card. */
+.roulette-stage { display: flex; align-items: center; gap: 28px; margin-bottom: 4px; }
+.wheel-slot { position: relative; flex: 0 0 auto; margin-left: -40px; }
+.wheel-wrap {
+  position: relative; width: 230px; height: 430px; overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%);
 }
-#wheel { display: block; width: 100%; height: auto; border-radius: 50%; box-shadow: 0 0 0 6px var(--cream), 0 0 0 7px rgba(43,53,175,0.15), 0 10px 30px rgba(43,53,175,0.18); }
-.wheel-hub {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
-  width: 58px; height: 58px; border-radius: 50%; background: white; border: 1px solid rgba(43,53,175,0.15);
-  display: flex; align-items: center; justify-content: center; z-index: 2; pointer-events: none;
-  font-family: 'Great Vibes', cursive; font-size: 22px; color: var(--blue);
+#wheel {
+  position: absolute; top: 50%; left: 0; width: 920px; height: 920px;
+  transform: translate(-75%, -50%); border-radius: 50%;
+  filter: drop-shadow(0 8px 24px rgba(43,53,175,0.22));
 }
+.wheel-pointer {
+  position: absolute; top: 50%; right: -12px; transform: translateY(-50%);
+  width: 0; height: 0; border-top: 14px solid transparent; border-bottom: 14px solid transparent;
+  border-right: 28px solid var(--pink); z-index: 3; pointer-events: none;
+  filter: drop-shadow(2px 0 0 rgba(43,53,175,0.2));
+}
+.roulette-panel { flex: 1 1 auto; text-align: left; min-width: 0; }
 .spin-btn {
   display: inline-block; padding: 16px 40px; background: var(--blue); color: white; border: none;
   font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
@@ -681,14 +688,14 @@ textarea::placeholder { color: #ccc; }
 .spin-btn:hover:not(:disabled) { background: var(--blue-mid); }
 .spin-btn:active:not(:disabled) { transform: translateY(1px); }
 .spin-btn:disabled { opacity: 0.45; cursor: not-allowed; }
-.roulette-result { margin-top: 26px; min-height: 10px; }
+.roulette-result { margin-top: 22px; min-height: 10px; }
 .result-card { background: var(--cream); border: 1px dashed rgba(43,53,175,0.3); padding: 26px 22px; animation: resultIn 0.45s ease-out; }
 @keyframes resultIn { from { opacity: 0; transform: translateY(10px) scale(0.97); } to { opacity: 1; transform: none; } }
 .result-eyebrow { font-family: 'DM Sans', sans-serif; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--blue-grey); margin-bottom: 10px; }
 .result-item { font-family: 'Bodoni Moda', serif; font-size: 24px; line-height: 1.3; color: var(--blue); margin-bottom: 6px; }
 .result-price { font-family: 'Courier Prime', monospace; font-size: 13px; color: var(--pink); margin-bottom: 8px; }
 .result-blurb { font-family: 'Courier Prime', monospace; font-size: 12px; color: #777; font-style: italic; line-height: 1.7; margin-bottom: 20px; }
-.result-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.result-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 .respin-btn {
   padding: 14px 26px; background: none; border: 1px solid rgba(43,53,175,0.3); color: var(--blue);
   font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: background 0.2s;
@@ -699,6 +706,11 @@ textarea::placeholder { color: #ccc; }
 @media (max-width: 768px) {
   .roulette { padding: 28px 20px; }
   .result-item { font-size: 20px; }
+  .roulette-stage { flex-direction: column; align-items: flex-start; gap: 22px; }
+  .wheel-slot { margin-left: -20px; }
+  .wheel-wrap { width: 150px; height: 300px; }
+  #wheel { width: 600px; height: 600px; }
+  .roulette-panel { width: 100%; }
 }
 
 /* INFO */
@@ -960,14 +972,19 @@ footer { background: var(--blue); padding: 48px;  }
         <div class="roulette-title">Spin the honeymoon wheel</div>
         <p class="roulette-intro">Can't decide what to give? Don't. Let fate assign you one very specific piece of our honeymoon. No refunds, no swaps, no negotiating with the wheel.</p>
 
-        <div class="wheel-wrap">
-          <canvas id="wheel" width="720" height="720" aria-label="Honeymoon gift roulette wheel"></canvas>
-          <div class="wheel-hub">R&amp;H</div>
+        <div class="roulette-stage">
+          <div class="wheel-slot">
+            <div class="wheel-wrap">
+              <canvas id="wheel" width="900" height="900" aria-label="Honeymoon gift roulette wheel"></canvas>
+            </div>
+            <div class="wheel-pointer"></div>
+          </div>
+
+          <div class="roulette-panel">
+            <button class="spin-btn" id="spin-btn" onclick="spinWheel()">Spin the wheel</button>
+            <div class="roulette-result" id="roulette-result" aria-live="polite"></div>
+          </div>
         </div>
-
-        <button class="spin-btn" id="spin-btn" onclick="spinWheel()">Spin the wheel</button>
-
-        <div class="roulette-result" id="roulette-result" aria-live="polite"></div>
 
         <p class="roulette-smallprint">Entirely optional, mildly ridiculous, and genuinely appreciated. The wheel is not legally binding.</p>
       </div>
@@ -1131,24 +1148,25 @@ function showRSVPForm() {
 const PAYPAL_ME = 'https://www.paypal.me/robandhanna';
 
 const WHEEL_PRIZES = [
-  { label: 'Chang at sunset',   item: 'One Chang beer, drunk at sunset',        amount: 4,  blurb: 'Warm within ten minutes. Worth it anyway.' },
-  { label: 'Street pad thai',   item: 'Pad thai from a plastic stool',          amount: 3,  blurb: 'The best meal of the entire trip, obviously.' },
-  { label: 'Longtail boat',     item: 'A longtail boat to a beach we saw once', amount: 22, blurb: 'Captain optional. Life jackets aspirational.' },
-  { label: 'Beach hut night',   item: 'One night in a beach hut',               amount: 45, blurb: 'Sea view. Also a gecko view.' },
-  { label: 'Snorkel hire',      item: 'Two snorkels and one shared panic',      amount: 15, blurb: 'Rob will see a fish and leave the water.' },
-  { label: 'Aloe vera',         item: 'Emergency factor-50 and aloe vera',      amount: 9,  blurb: 'For the person who insisted they never burn.' },
-  { label: 'Thai massage',      item: 'A Thai massage and its consequences',    amount: 20, blurb: 'You will hear a noise. It was a rib.' },
-  { label: 'Airport pint',      item: 'The 6am airport pint',                   amount: 11, blurb: 'A sacred tradition. Cost per pint: heartbreaking.' },
-  { label: 'Melbourne coffee',  item: 'A properly serious Melbourne coffee',    amount: 6,  blurb: 'Hanna will have opinions about the crema.' },
-  { label: 'Surf lesson',       item: 'A surf lesson, one wave, mostly sand',   amount: 30, blurb: 'Standing up is not included in the price.' },
-  { label: 'Kangaroo bribe',    item: 'Snacks to bribe a kangaroo',             amount: 12, blurb: 'For a photo. The kangaroo sets the terms.' },
-  { label: 'Opera House selfie',item: 'The obligatory Opera House selfie',      amount: 25, blurb: 'Cost is entirely the ferry there and back.' }
+  { label: 'Chang beer',    item: 'One Chang beer, drunk at sunset',        amount: 4,  blurb: 'Warm within ten minutes. Worth it anyway.' },
+  { label: 'Pad thai',      item: 'Pad thai from a plastic stool',          amount: 3,  blurb: 'The best meal of the entire trip, obviously.' },
+  { label: 'Longtail boat', item: 'A longtail boat to a beach we saw once', amount: 22, blurb: 'Captain optional. Life jackets aspirational.' },
+  { label: 'Beach hut',     item: 'One night in a beach hut',               amount: 45, blurb: 'Sea view. Also a gecko view.' },
+  { label: 'Snorkels',      item: 'Two snorkels and one shared panic',      amount: 15, blurb: 'Rob will see a fish and leave the water.' },
+  { label: 'Aloe vera',     item: 'Emergency factor-50 and aloe vera',      amount: 9,  blurb: 'For the person who insisted they never burn.' },
+  { label: 'Thai massage',  item: 'A Thai massage and its consequences',    amount: 20, blurb: 'You will hear a noise. It was a rib.' },
+  { label: 'Airport pint',  item: 'The 6am airport pint',                   amount: 11, blurb: 'A sacred tradition. Cost per pint: heartbreaking.' },
+  { label: 'Flat white',    item: 'A properly serious Melbourne coffee',    amount: 6,  blurb: 'Hanna will have opinions about the crema.' },
+  { label: 'Surf lesson',   item: 'A surf lesson, one wave, mostly sand',   amount: 30, blurb: 'Standing up is not included in the price.' },
+  { label: 'Kangaroo',      item: 'Snacks to bribe a kangaroo',             amount: 12, blurb: 'For a photo. The kangaroo sets the terms.' },
+  { label: 'Opera selfie',  item: 'The obligatory Opera House selfie',      amount: 25, blurb: 'Cost is entirely the ferry there and back.' }
 ];
 
 const WHEEL_COLOURS = ['#2b35af', '#d4607a', '#7A9EA8', '#f0d44a'];
 const WHEEL_TEXT    = ['#ffffff', '#ffffff', '#ffffff', '#2b35af'];
 
-let wheelRotation = -Math.PI / 2;
+const POINTER_ANGLE = 0; // 3 o'clock
+let wheelRotation = -Math.PI / 12;
 let wheelSpinning = false;
 
 function segColourIndex(i) {
@@ -1192,11 +1210,17 @@ function drawWheel() {
     ctx.textAlign = 'right';
     ctx.textBaseline = 'middle';
     ctx.fillStyle = WHEEL_TEXT[c];
-    ctx.font = '600 27px "DM Sans", sans-serif';
-    ctx.fillText(WHEEL_PRIZES[i].label, r - 34, 0);
-    ctx.font = '400 22px "Courier Prime", monospace';
+    // Only the outer quarter of the radius is ever on screen, so keep text inside it.
+    const maxWidth = r * 0.5 - 46;
+    let fontSize = 34;
+    do {
+      ctx.font = '600 ' + fontSize + 'px "DM Sans", sans-serif';
+      fontSize -= 1;
+    } while (ctx.measureText(WHEEL_PRIZES[i].label).width > maxWidth && fontSize > 16);
+    ctx.fillText(WHEEL_PRIZES[i].label, r - 34, -14);
+    ctx.font = '400 24px "Courier Prime", monospace';
     ctx.globalAlpha = 0.75;
-    ctx.fillText('£' + WHEEL_PRIZES[i].amount, r - 34, 30);
+    ctx.fillText('£' + WHEEL_PRIZES[i].amount, r - 34, 22);
     ctx.restore();
   }
 
@@ -1244,8 +1268,8 @@ function spinWheel() {
   const seg = (Math.PI * 2) / n;
   const winner = Math.floor(Math.random() * n);
 
-  // Pointer sits at the top (-PI/2). Land the middle of the winning segment there.
-  const target = -Math.PI / 2 - winner * seg - seg / 2;
+  // Land the middle of the winning wedge on the pointer.
+  const target = POINTER_ANGLE - winner * seg - seg / 2;
   const spins = 5 + Math.floor(Math.random() * 3);
   const start = wheelRotation;
   const twoPi = Math.PI * 2;
@@ -1261,7 +1285,7 @@ function spinWheel() {
     wheelRotation = start + delta * eased;
     drawWheel();
 
-    const current = Math.floor(((-Math.PI / 2 - wheelRotation) % twoPi + twoPi) % twoPi / seg);
+    const current = Math.floor(((POINTER_ANGLE - wheelRotation) % twoPi + twoPi) % twoPi / seg);
     if (current !== lastSeg) { if (lastSeg !== -1) tick(); lastSeg = current; }
 
     if (t < 1) {
