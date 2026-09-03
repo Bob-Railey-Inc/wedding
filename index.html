@@ -656,6 +656,63 @@ textarea::placeholder { color: #ccc; }
 .gift-note { font-family: 'Courier Prime', monospace; font-size: 12px; color: #aaa; margin-top: 12px; font-style: italic; }
 .gift-soon { font-family: 'Courier Prime', monospace; font-size: 12px; color: #aaa; font-style: italic; margin-top: 0; }
 
+/* GIFT ROULETTE */
+.roulette { background: white; border: 1px solid rgba(43,53,175,0.1); padding: 40px; margin-bottom: 20px; transform: rotate(0.3deg); box-shadow: 3px 3px 0 var(--blue-grey); text-align: center; }
+.roulette-title { font-family: 'DM Sans', sans-serif; font-size: 26px; font-weight: 700; letter-spacing: -0.5px; color: var(--pink); margin-bottom: 14px; }
+.roulette-intro { font-family: 'Courier Prime', monospace; font-size: 14px; color: #555; line-height: 1.8; margin-bottom: 28px; }
+/* Only the right quarter of the wheel shows; the rest runs off the left of the card. */
+.roulette-stage { display: flex; align-items: center; gap: 28px; margin-bottom: 4px; }
+.wheel-slot { position: relative; flex: 0 0 auto; margin-left: -40px; }
+.wheel-wrap {
+  position: relative; width: 230px; height: 430px; overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0, #000 14%, #000 86%, transparent 100%);
+}
+#wheel {
+  position: absolute; top: 50%; left: 0; width: 920px; height: 920px;
+  transform: translate(-75%, -50%); border-radius: 50%;
+  filter: drop-shadow(0 8px 24px rgba(43,53,175,0.22));
+}
+.wheel-pointer {
+  position: absolute; top: 50%; right: -12px; transform: translateY(-50%);
+  width: 0; height: 0; border-top: 14px solid transparent; border-bottom: 14px solid transparent;
+  border-right: 28px solid var(--pink); z-index: 3; pointer-events: none;
+  filter: drop-shadow(2px 0 0 rgba(43,53,175,0.2));
+}
+.roulette-panel { flex: 1 1 auto; text-align: left; min-width: 0; }
+.spin-btn {
+  display: inline-block; padding: 16px 40px; background: var(--blue); color: white; border: none;
+  font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  cursor: pointer; transition: background 0.2s, transform 0.1s;
+}
+.spin-btn:hover:not(:disabled) { background: var(--blue-mid); }
+.spin-btn:active:not(:disabled) { transform: translateY(1px); }
+.spin-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.roulette-result { margin-top: 22px; min-height: 10px; }
+.result-card { background: var(--cream); border: 1px dashed rgba(43,53,175,0.3); padding: 26px 22px; animation: resultIn 0.45s ease-out; }
+@keyframes resultIn { from { opacity: 0; transform: translateY(10px) scale(0.97); } to { opacity: 1; transform: none; } }
+.result-eyebrow { font-family: 'DM Sans', sans-serif; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--blue-grey); margin-bottom: 10px; }
+.result-item { font-family: 'Bodoni Moda', serif; font-size: 24px; line-height: 1.3; color: var(--blue); margin-bottom: 6px; }
+.result-price { font-family: 'Courier Prime', monospace; font-size: 13px; color: var(--pink); margin-bottom: 8px; }
+.result-blurb { font-family: 'Courier Prime', monospace; font-size: 12px; color: #777; font-style: italic; line-height: 1.7; margin-bottom: 20px; }
+.result-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.respin-btn {
+  padding: 14px 26px; background: none; border: 1px solid rgba(43,53,175,0.3); color: var(--blue);
+  font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: background 0.2s;
+}
+.respin-btn:hover { background: rgba(43,53,175,0.06); }
+.roulette-smallprint { font-family: 'Courier Prime', monospace; font-size: 12px; color: #aaa; font-style: italic; margin-top: 22px; line-height: 1.7; }
+
+@media (max-width: 768px) {
+  .roulette { padding: 28px 20px; }
+  .result-item { font-size: 20px; }
+  .roulette-stage { flex-direction: column; align-items: flex-start; gap: 22px; }
+  .wheel-slot { margin-left: -20px; }
+  .wheel-wrap { width: 150px; height: 300px; }
+  #wheel { width: 600px; height: 600px; }
+  .roulette-panel { width: 100%; }
+}
+
 /* INFO */
 .info-card { background: white; border: 1px solid rgba(43,53,175,0.1); padding: 32px; margin-bottom: 16px; }
 .info-card:nth-child(odd) { transform: rotate(-0.2deg); }
@@ -910,6 +967,27 @@ footer { background: var(--blue); padding: 48px;  }
         <p>Honestly we are just excited to spend the day with you but if you'd like to make a small contribution to our honeymoon fund to Thailand and Australia that would be majorly appreciated.</p>
         <p class="gift-soon">More details to be shared closer to the time.</p>
       </div>
+
+      <div class="roulette">
+        <div class="roulette-title">Spin the honeymoon wheel</div>
+        <p class="roulette-intro">Can't decide what to give? Don't. Let fate assign you one very specific piece of our honeymoon. No refunds, no swaps, no negotiating with the wheel.</p>
+
+        <div class="roulette-stage">
+          <div class="wheel-slot">
+            <div class="wheel-wrap">
+              <canvas id="wheel" width="900" height="900" aria-label="Honeymoon gift roulette wheel"></canvas>
+            </div>
+            <div class="wheel-pointer"></div>
+          </div>
+
+          <div class="roulette-panel">
+            <button class="spin-btn" id="spin-btn" onclick="spinWheel()">Spin the wheel</button>
+            <div class="roulette-result" id="roulette-result" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <p class="roulette-smallprint">Entirely optional, mildly ridiculous, and genuinely appreciated. The wheel is not legally binding.</p>
+      </div>
     </div>
   </div>
 
@@ -1064,6 +1142,190 @@ function showRSVPForm() {
   document.getElementById('rsvp-form-view').style.display = 'block';
   document.getElementById('rsvp-thankyou').style.display = 'none';
 }
+
+/* ---- GIFT ROULETTE ---- */
+// Update this to your own PayPal.me handle. Amount is appended automatically.
+const PAYPAL_ME = 'https://www.paypal.me/robandhanna';
+
+const WHEEL_PRIZES = [
+  { label: 'Chang beer',    item: 'One Chang beer, drunk at sunset',        amount: 4,  blurb: 'Warm within ten minutes. Worth it anyway.' },
+  { label: 'Pad thai',      item: 'Pad thai from a plastic stool',          amount: 3,  blurb: 'The best meal of the entire trip, obviously.' },
+  { label: 'Longtail boat', item: 'A longtail boat to a beach we saw once', amount: 22, blurb: 'Captain optional. Life jackets aspirational.' },
+  { label: 'Beach hut',     item: 'One night in a beach hut',               amount: 45, blurb: 'Sea view. Also a gecko view.' },
+  { label: 'Snorkels',      item: 'Two snorkels and one shared panic',      amount: 15, blurb: 'Rob will see a fish and leave the water.' },
+  { label: 'Aloe vera',     item: 'Emergency factor-50 and aloe vera',      amount: 9,  blurb: 'For the person who insisted they never burn.' },
+  { label: 'Thai massage',  item: 'A Thai massage and its consequences',    amount: 20, blurb: 'You will hear a noise. It was a rib.' },
+  { label: 'Airport pint',  item: 'The 6am airport pint',                   amount: 11, blurb: 'A sacred tradition. Cost per pint: heartbreaking.' },
+  { label: 'Flat white',    item: 'A properly serious Melbourne coffee',    amount: 6,  blurb: 'Hanna will have opinions about the crema.' },
+  { label: 'Surf lesson',   item: 'A surf lesson, one wave, mostly sand',   amount: 30, blurb: 'Standing up is not included in the price.' },
+  { label: 'Kangaroo',      item: 'Snacks to bribe a kangaroo',             amount: 12, blurb: 'For a photo. The kangaroo sets the terms.' },
+  { label: 'Opera selfie',  item: 'The obligatory Opera House selfie',      amount: 25, blurb: 'Cost is entirely the ferry there and back.' }
+];
+
+const WHEEL_COLOURS = ['#2b35af', '#d4607a', '#7A9EA8', '#f0d44a'];
+const WHEEL_TEXT    = ['#ffffff', '#ffffff', '#ffffff', '#2b35af'];
+
+const POINTER_ANGLE = 0; // 3 o'clock
+let wheelRotation = -Math.PI / 12;
+let wheelSpinning = false;
+
+function segColourIndex(i) {
+  // Keep the first and last wedge from matching when the counts don't divide evenly.
+  const n = WHEEL_COLOURS.length;
+  let c = i % n;
+  if (i === WHEEL_PRIZES.length - 1 && c === 0) c = n > 2 ? n - 2 : 1;
+  return c;
+}
+
+function drawWheel() {
+  const canvas = document.getElementById('wheel');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const size = canvas.width;
+  const r = size / 2;
+  const n = WHEEL_PRIZES.length;
+  const seg = (Math.PI * 2) / n;
+
+  ctx.clearRect(0, 0, size, size);
+  ctx.save();
+  ctx.translate(r, r);
+  ctx.rotate(wheelRotation);
+
+  for (let i = 0; i < n; i++) {
+    const a0 = i * seg;
+    const c = segColourIndex(i);
+
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.arc(0, 0, r - 4, a0, a0 + seg);
+    ctx.closePath();
+    ctx.fillStyle = WHEEL_COLOURS[c];
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.55)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.save();
+    ctx.rotate(a0 + seg / 2);
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = WHEEL_TEXT[c];
+    // Only the outer quarter of the radius is ever on screen, so keep text inside it.
+    const maxWidth = r * 0.5 - 46;
+    let fontSize = 34;
+    do {
+      ctx.font = '600 ' + fontSize + 'px "DM Sans", sans-serif';
+      fontSize -= 1;
+    } while (ctx.measureText(WHEEL_PRIZES[i].label).width > maxWidth && fontSize > 16);
+    ctx.fillText(WHEEL_PRIZES[i].label, r - 34, -14);
+    ctx.font = '400 24px "Courier Prime", monospace';
+    ctx.globalAlpha = 0.75;
+    ctx.fillText('£' + WHEEL_PRIZES[i].amount, r - 34, 22);
+    ctx.restore();
+  }
+
+  ctx.restore();
+
+  // Outer rim
+  ctx.beginPath();
+  ctx.arc(r, r, r - 4, 0, Math.PI * 2);
+  ctx.strokeStyle = '#2b35af';
+  ctx.lineWidth = 6;
+  ctx.stroke();
+}
+
+let tickAudio = null;
+function tick() {
+  try {
+    if (!tickAudio) {
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      tickAudio = new AC();
+    }
+    const osc = tickAudio.createOscillator();
+    const gain = tickAudio.createGain();
+    osc.type = 'square';
+    osc.frequency.value = 1100;
+    gain.gain.setValueAtTime(0.05, tickAudio.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, tickAudio.currentTime + 0.045);
+    osc.connect(gain).connect(tickAudio.destination);
+    osc.start();
+    osc.stop(tickAudio.currentTime + 0.05);
+  } catch (e) { /* silence is fine */ }
+}
+
+function spinWheel() {
+  if (wheelSpinning) return;
+  wheelSpinning = true;
+
+  const btn = document.getElementById('spin-btn');
+  const out = document.getElementById('roulette-result');
+  btn.disabled = true;
+  btn.textContent = 'Spinning...';
+  out.innerHTML = '';
+
+  const n = WHEEL_PRIZES.length;
+  const seg = (Math.PI * 2) / n;
+  const winner = Math.floor(Math.random() * n);
+
+  // Land the middle of the winning wedge on the pointer.
+  const target = POINTER_ANGLE - winner * seg - seg / 2;
+  const spins = 5 + Math.floor(Math.random() * 3);
+  const start = wheelRotation;
+  const twoPi = Math.PI * 2;
+  let delta = ((target - start) % twoPi + twoPi) % twoPi + spins * twoPi;
+
+  const duration = 4600;
+  const startTime = performance.now();
+  let lastSeg = -1;
+
+  function frame(now) {
+    const t = Math.min((now - startTime) / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 4);
+    wheelRotation = start + delta * eased;
+    drawWheel();
+
+    const current = Math.floor(((POINTER_ANGLE - wheelRotation) % twoPi + twoPi) % twoPi / seg);
+    if (current !== lastSeg) { if (lastSeg !== -1) tick(); lastSeg = current; }
+
+    if (t < 1) {
+      requestAnimationFrame(frame);
+    } else {
+      wheelRotation = ((target % twoPi) + twoPi) % twoPi;
+      drawWheel();
+      wheelSpinning = false;
+      btn.disabled = false;
+      btn.textContent = 'Spin again';
+      showPrize(WHEEL_PRIZES[winner]);
+    }
+  }
+  requestAnimationFrame(frame);
+}
+
+function showPrize(prize) {
+  const out = document.getElementById('roulette-result');
+  const link = PAYPAL_ME.replace(/\/$/, '') + '/' + prize.amount + 'GBP';
+  out.innerHTML =
+    '<div class="result-card">' +
+      '<div class="result-eyebrow">The wheel has spoken</div>' +
+      '<div class="result-item">' + prize.item + '</div>' +
+      '<div class="result-price">£' + prize.amount + '</div>' +
+      '<div class="result-blurb">' + prize.blurb + '</div>' +
+      '<div class="result-actions">' +
+        '<a class="gift-btn" href="' + link + '" target="_blank" rel="noopener">Pay £' + prize.amount + '</a>' +
+        '<button class="respin-btn" onclick="spinWheel()">Reject fate</button>' +
+      '</div>' +
+    '</div>';
+}
+
+if (document.getElementById('wheel')) {
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(drawWheel);
+  }
+  drawWheel();
+}
+
+
 </script>
 
 <script type="module" src="discoball.js"></script>
