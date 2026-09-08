@@ -304,7 +304,7 @@ function spinWheel() {
   const twoPi = Math.PI * 2;
   let delta = ((target - start) % twoPi + twoPi) % twoPi + spins * twoPi;
 
-  const duration = 4600;
+  const duration = 9200;
   const startTime = performance.now();
   let lastSeg = -1;
 
