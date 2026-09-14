@@ -486,168 +486,6 @@ nav {
   letter-spacing: 0.5px;
 }
 
-/* RSVP */
-.party-toggle { display: flex;  gap: 12px; margin-bottom: 32px; }
-.party-label { font-family: 'Courier Prime', monospace; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #888; }
-
-.toggle-btn {
-  padding: 10px 24px;
-  border: 1px solid rgba(43,53,175,0.15);
-  font-family: 'Courier Prime', monospace;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  cursor: pointer;
-  background: transparent;
-  color: var(--blue);
-  transition: all 0.2s;
-}
-.toggle-btn.active { background: var(--pink); color: white; border-color: var(--pink); }
-
-.guests-grid { display: grid; grid-template-columns: 1fr; gap: 28px; margin-bottom: 24px; }
-.guests-grid.two-up { grid-template-columns: 1fr 1fr; }
-
-.guest-card {
-  background: white;
-  border: 1px solid rgba(43,53,175,0.1);
-  padding: 36px;
-}
-.guest-card:first-child { transform: rotate(-0.3deg); box-shadow: 3px 3px 0 var(--pink); }
-.guest-card:last-child  { transform: rotate(0.3deg);  box-shadow: 3px 3px 0 var(--pink); }
-.guest-card.hidden { display: none; }
-
-.guest-card-title {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 22px;
-  font-style: normal;
-  color: var(--blue);
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid rgba(43,53,175,0.1);
-}
-
-.field-label {
-  display: block;
-  font-family: 'Courier Prime', monospace;
-  font-size: 10px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #999;
-  margin-bottom: 10px;
-  margin-top: 24px;
-}
-
-input[type="text"], input[type="password"] {
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid rgba(43,53,175,0.15);
-  background: transparent;
-  padding: 8px 0;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
-  font-weight: 300;
-  color: var(--blue);
-  outline: none;
-  transition: border-color 0.2s;
-}
-input:focus { border-bottom-color: var(--blue); }
-input::placeholder { color: #ccc; }
-
-textarea {
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid rgba(43,53,175,0.15);
-  background: transparent;
-  padding: 8px 0;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 15px;
-  font-weight: 300;
-  color: var(--blue);
-  outline: none;
-  transition: border-color 0.2s;
-  resize: none;
-  min-height: 60px;
-}
-textarea:focus { border-bottom-color: var(--blue); }
-textarea::placeholder { color: #ccc; }
-
-.pill-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
-
-.pill {
-  padding: 7px 16px;
-  border: 1px solid rgba(43,53,175,0.15);
-  font-family: 'Courier Prime', monospace;
-  font-size: 11px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  background: transparent;
-  color: var(--blue);
-  transition: all 0.15s;
-}
-.pill:hover { border-color: var(--blue); }
-.pill.selected { background: var(--pink); color: white; border-color: var(--pink); }
-
-.song-row { display: flex; gap: 8px;  margin-bottom: 10px; }
-.song-row input { flex: 1; }
-
-.add-song-btn {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 9px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  background: none;
-  border: 1px dashed rgba(43,53,175,0.2);
-  padding: 8px 16px;
-  cursor: pointer;
-  color: #999;
-  margin-top: 8px;
-  transition: all 0.15s;
-}
-.add-song-btn:hover { border-color: var(--blue); color: var(--blue); }
-
-.form-error { font-size: 12px; color: #c0392b; margin-top: 16px; display: none; letter-spacing: 0.5px; }
-
-.submit-btn {
-  width: 100%;
-  margin-top: 36px;
-  padding: 20px;
-  background: var(--blue);
-  color: white;
-  border: none;
-  font-family: 'Courier Prime', monospace;
-  font-size: 10px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.submit-btn:hover { background: var(--pink); }
-
-/* THANK YOU */
-.thankyou-wrap { max-width: 480px; margin: 0 auto; padding: 60px 24px;  }
-.check-circle {
-  width: 56px; height: 56px;
-  border: 1px solid var(--blue);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 32px;
-  font-size: 18px;
-  line-height: 1;
-  color: var(--blue);
-  animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
-}
-@keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
-.thankyou-wrap p { font-size: 14px; color: #666; line-height: 1.8; margin-bottom: 28px; }
-.text-link {
-  font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
-  color: #999; background: none; border: none; cursor: pointer;
-  text-decoration: underline; text-underline-offset: 3px; font-family: 'DM Sans', sans-serif;
-}
-
-
-
 /* GIFTS */
 .gift-card { background: white; border: 1px solid rgba(43,53,175,0.1); padding: 40px; margin-bottom: 20px; transform: rotate(-0.3deg); box-shadow: 3px 3px 0 var(--pink); }
 .gift-card p { font-family: 'Courier Prime', monospace; font-size: 14px; color: #555; line-height: 1.8; margin-bottom: 20px; }
@@ -687,7 +525,6 @@ footer { background: var(--blue); padding: 48px;  }
   .hero-text { padding: 32px 24px; }
   .hero-scroll { right: 24px; }
   .section { padding: 60px 24px; }
-  .guests-grid.two-up { grid-template-columns: 1fr; }
   footer { padding: 40px 24px; }
 }
 
@@ -765,7 +602,6 @@ footer { background: var(--blue); padding: 48px;  }
   <!-- HERO -->
   <div class="hero">
     <div class="hero-nav">
-      <a href="#rsvp" onclick="event.preventDefault();smoothTo('rsvp')">RSVP</a>
       <a href="#info" onclick="event.preventDefault();smoothTo('info')">Info</a>
       <a href="#gifts" onclick="event.preventDefault();smoothTo('gifts')">Gifts</a>
     </div>
@@ -775,88 +611,6 @@ footer { background: var(--blue); padding: 48px;  }
       
     </div>
 
-  </div>
-
-  <!-- RSVP -->
-  <div class="section light" id="rsvp">
-    <div class="section-inner">
-
-      <div id="rsvp-form-view">
-        <span class="section-eyebrow">You're invited</span>
-        <h2 class="section-title">Join us</h2>
-        <div class="divider"></div><p style="font-family:'Courier Prime',monospace;font-size:15px;color:#666;line-height:1.8;margin-bottom:36px;">Please let us know if you can make it <b>by 01/08/26</b> and send us your song requests for the dancefloor.</p>
-
-        <!-- ATTENDANCE -->
-        <label class="field-label">Will you be joining us?</label>
-        <div style="display:flex;gap:12px;margin-top:8px;margin-bottom:28px;">
-          <button class="toggle-btn active" id="att-yes" onclick="setAttendance(true)">Yes, I'll be there</button>
-          <button class="toggle-btn" id="att-no" onclick="setAttendance(false)">Sorry, I can't make it</button>
-        </div>
-
-        <!-- NO - just name -->
-        <div id="no-rsvp-block" style="display:none;">
-          <div class="guests-grid">
-            <div class="guest-card">
-              <div class="guest-card-title">Your details</div>
-              <label class="field-label">Full name</label>
-              <input type="text" id="no-name" placeholder="your name..." />
-              <div class="form-error" id="no-error"></div>
-              <button class="submit-btn" id="submit-no-btn" onclick="submitNo()" style="margin-top:24px;">Send</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- YES - full form -->
-        <div id="yes-rsvp-block">
-        <div class="guests-grid" id="guests-grid">
-          <div class="guest-card" id="col-g1">
-            <div class="guest-card-title" id="col1-label">Your details</div>
-            <label class="field-label">Full name</label>
-            <input type="text" id="g1-name" placeholder="your name..." />
-            <label class="field-label">Meal choice</label>
-            <div class="pill-grid" id="g1-food-pills">
-              <button class="pill" onclick="selectPill(this,'g1-food')">Lamb (wg)</button>
-              <button class="pill" onclick="selectPill(this,'g1-food')">Sea Bream (wg) </button>
-              <button class="pill" onclick="selectPill(this,'g1-food')">Vegetarian</button>
-              <button class="pill" onclick="selectPill(this,'g1-food')">Vegan</button>
-            </div>
-            <label class="field-label">Allergies or dietary requirements</label>
-            <textarea id="g1-allergies" placeholder="let us know of any allergies or dietary requirements..."></textarea>
-            <label class="field-label">Star sign</label>
-            <div class="pill-grid" id="g1-star-pills">
-              <button class="pill" onclick="selectPill(this,'g1-star')">Aries</button>
-              <button class="pill" onclick="selectPill(this,'g1-star')">Taurus</button>
-              <button class="pill" onclick="selectPill(this,'g1-star')">Gemini</button>
-              <button class="pill" onclick="selectPill(this,'g1-star')">Cancer</button>
-              <button class="pill" onclick="selectPill(this,'g1-star')">Leo</button>
-              <button class="pill" onclick="selectPill(this,'g1-star')">Virgo</button>
-              <button class="pill" onclick="selectPill(this,'g1-star')">Libra</button>
-              <button class="pill" onclick="selectPill(this,'g1-star')">Scorpio</button>
-              <button class="pill" onclick="selectPill(this,'g1-star')">Sagittarius</button>
-              <button class="pill" onclick="selectPill(this,'g1-star')">Capricorn</button>
-              <button class="pill" onclick="selectPill(this,'g1-star')">Aquarius</button>
-              <button class="pill" onclick="selectPill(this,'g1-star')">Pisces</button>
-            </div>
-            <label class="field-label">Song request</label>
-            <div id="g1-song"><div class="song-row"><input type="text" placeholder="song &amp; artist..." /></div></div>
-          </div>
-
-        </div>
-
-        <div class="form-error" id="form-error"></div>
-        <button class="submit-btn" id="submit-rsvp-btn" onclick="submitRSVP()">Confirm RSVP</button>
-        </div><!-- /yes-rsvp-block -->
-      </div>
-
-      <div id="rsvp-thankyou" style="display:none;">
-        <div class="thankyou-wrap">
-          <div class="check-circle">✓</div>
-          <h2 class="section-title" style="color:var(--blue);">Thank you</h2>
-          <p id="thankyou-msg">Your RSVP has been received.</p>
-        </div>
-      </div>
-
-    </div>
   </div>
 
   <!-- INFO -->
@@ -920,10 +674,6 @@ footer { background: var(--blue); padding: 48px;  }
 </div>
 
 <script>
-const AIRTABLE_TOKEN = 'patXdBwjorqFnrFOA.16ecf57ae58f4d0fbc08d1f8ec6b7a81f7d952f8d3400f46be788c93209291cc';
-const AIRTABLE_BASE = 'appkOCg0RLlb00Xfj';
-const AIRTABLE_TABLE = 'tblPMSALr4iopXark';
-let sel = { 'g1-food':'', 'g1-star':'' };
 
 function enterSite() {
   const entrance = document.getElementById('entrance');
@@ -954,116 +704,6 @@ window.addEventListener('scroll', () => {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 80);
 });
 
-function setAttendance(attending) {
-  const yesBtn = document.getElementById('att-yes');
-  const noBtn = document.getElementById('att-no');
-  const yesBlock = document.getElementById('yes-rsvp-block');
-  const noBlock = document.getElementById('no-rsvp-block');
-  if (attending) {
-    yesBtn.classList.add('active');
-    noBtn.classList.remove('active');
-    yesBlock.style.display = 'block';
-    noBlock.style.display = 'none';
-  } else {
-    noBtn.classList.add('active');
-    yesBtn.classList.remove('active');
-    yesBlock.style.display = 'none';
-    noBlock.style.display = 'block';
-  }
-}
-
-async function sendRSVP(guest) {
-  try {
-    await fetch(`https://api.airtable.com/v0/${AIRTABLE_BASE}/${AIRTABLE_TABLE}`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${AIRTABLE_TOKEN}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        fields: {
-          'Name': guest.name,
-          'Attending': guest.attending,
-          'Meal': guest.food,
-          'Allergies': guest.allergies,
-          'Star Sign': guest.star,
-          'Song Requests': guest.song
-        }
-      })
-    });
-  } catch(e) { console.error('Airtable error:', e); }
-}
-
-async function submitNo() {
-  const name = document.getElementById('no-name').value.trim();
-  const err = document.getElementById('no-error');
-  if (!name) { err.textContent = 'Please enter your name.'; err.style.display = 'block'; return; }
-  const guest = { name, food:'None', allergies: 'None', star:'None', song: 'None', attending: false };
-  // Send to Airtable
-  setButtonLoading('submit-no-btn', true, 'Send');
-  try {
-    await sendRSVP(guest);
-  } catch(e) { console.error('Airtable error:', e); }
-  finally { setButtonLoading('submit-no-btn', false, 'Send'); }
-  document.getElementById('thankyou-msg').textContent = 'Sorry you can\'t make it, ' + name + '. We\'ll miss you!';
-  document.getElementById('rsvp-form-view').style.display = 'none';
-  document.getElementById('rsvp-thankyou').style.display = 'block';
-}
-
-function selectPill(el, group) {
-  document.querySelectorAll('#' + group + '-pills .pill').forEach(p => p.classList.remove('selected'));
-  el.classList.add('selected');
-  sel[group] = el.textContent.trim();
-}
-
-function showError(msg) {
-  const el = document.getElementById('form-error');
-  el.textContent = msg; el.style.display = 'block';
-  el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
-
-function setButtonLoading(buttonId, isLoading, defaultText) {
-  const button = document.getElementById(buttonId);
-  if (!button) return;
-  button.disabled = isLoading;
-  button.style.opacity = isLoading ? '0.7' : '1';
-  button.style.cursor = isLoading ? 'not-allowed' : 'pointer';
-  button.textContent = isLoading ? 'Sending…' : defaultText;
-}
-
-async function submitRSVP() {
-  document.getElementById('form-error').style.display = 'none';
-  const guestNameEl = document.getElementById('g1-name');
-  const guest = { 
-    name: guestNameEl.value.trim(), 
-    food: sel['g1-food'], 
-    allergies: document.getElementById('g1-allergies').value.trim(),
-    star: sel['g1-star'], 
-    song: document.querySelector('#g1-song input').value.trim(),
-    attending: true
-  };
-  if (!guest.name) { showError('Please enter your name.'); return; }
-  if (!guest.food) { showError('Please choose a meal.'); return; }
-  if (!guest.star) { showError('Please enter a star sign.'); return; }
-  
-  // Send to Airtable
-  setButtonLoading('submit-rsvp-btn', true, 'Confirm RSVP');
-  try {
-    await sendRSVP(guest);
-  } catch(e) { console.error('Airtable error:', e); }
-  finally { setButtonLoading('submit-rsvp-btn', false, 'Confirm RSVP'); }
-  const firstName = guest.name.split(' ')[0];
-  document.getElementById('thankyou-msg').textContent = `Thank you, ${firstName}! Your RSVP has been received. We can't wait to celebrate with you on 7th November 2026.`;
-
-  document.getElementById('rsvp-form-view').style.display = 'none';
-  document.getElementById('rsvp-thankyou').style.display = 'block';
-  document.getElementById('rsvp').scrollIntoView({ behavior: 'smooth' });
-}
-
-function showRSVPForm() {
-  document.getElementById('rsvp-form-view').style.display = 'block';
-  document.getElementById('rsvp-thankyou').style.display = 'none';
-}
 </script>
 
 <script type="module" src="discoball.js"></script>
