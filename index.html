@@ -57,7 +57,6 @@
   <!-- HERO -->
   <div class="hero">
     <div class="hero-nav">
-      <a href="#rsvp" onclick="event.preventDefault();smoothTo('rsvp')">RSVP</a>
       <a href="#info" onclick="event.preventDefault();smoothTo('info')">Info</a>
       <a href="#gifts" onclick="event.preventDefault();smoothTo('gifts')">Gifts</a>
     </div>
@@ -67,88 +66,6 @@
       
     </div>
 
-  </div>
-
-  <!-- RSVP -->
-  <div class="section light" id="rsvp">
-    <div class="section-inner">
-
-      <div id="rsvp-form-view">
-        <span class="section-eyebrow">You're invited</span>
-        <h2 class="section-title">Join us</h2>
-        <div class="divider"></div><p style="font-family:'Courier Prime',monospace;font-size:15px;color:#666;line-height:1.8;margin-bottom:36px;">Please let us know if you can make it <b>by 01/08/26</b> and send us your song requests for the dancefloor.</p>
-
-        <!-- ATTENDANCE -->
-        <label class="field-label">Will you be joining us?</label>
-        <div style="display:flex;gap:12px;margin-top:8px;margin-bottom:28px;">
-          <button class="toggle-btn active" id="att-yes" onclick="setAttendance(true)">Yes, I'll be there</button>
-          <button class="toggle-btn" id="att-no" onclick="setAttendance(false)">Sorry, I can't make it</button>
-        </div>
-
-        <!-- NO - just name -->
-        <div id="no-rsvp-block" style="display:none;">
-          <div class="guests-grid">
-            <div class="guest-card">
-              <div class="guest-card-title">Your details</div>
-              <label class="field-label">Full name</label>
-              <input type="text" id="no-name" placeholder="your name..." />
-              <div class="form-error" id="no-error"></div>
-              <button class="submit-btn" id="submit-no-btn" onclick="submitNo()" style="margin-top:24px;">Send</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- YES - full form -->
-        <div id="yes-rsvp-block">
-        <div class="guests-grid" id="guests-grid">
-          <div class="guest-card" id="col-g1">
-            <div class="guest-card-title" id="col1-label">Your details</div>
-            <label class="field-label">Full name</label>
-            <input type="text" id="g1-name" placeholder="your name..." />
-            <label class="field-label">Meal choice</label>
-            <div class="pill-grid" id="g1-food-pills">
-              <button class="pill" onclick="selectPill(this,'g1-food')">Lamb (wg)</button>
-              <button class="pill" onclick="selectPill(this,'g1-food')">Sea Bream (wg) </button>
-              <button class="pill" onclick="selectPill(this,'g1-food')">Vegetarian</button>
-              <button class="pill" onclick="selectPill(this,'g1-food')">Vegan</button>
-            </div>
-            <label class="field-label">Allergies or dietary requirements</label>
-            <textarea id="g1-allergies" placeholder="let us know of any allergies or dietary requirements..."></textarea>
-            <label class="field-label">Star sign</label>
-            <div class="pill-grid" id="g1-star-pills">
-              <button class="pill" onclick="selectPill(this,'g1-star')">Aries</button>
-              <button class="pill" onclick="selectPill(this,'g1-star')">Taurus</button>
-              <button class="pill" onclick="selectPill(this,'g1-star')">Gemini</button>
-              <button class="pill" onclick="selectPill(this,'g1-star')">Cancer</button>
-              <button class="pill" onclick="selectPill(this,'g1-star')">Leo</button>
-              <button class="pill" onclick="selectPill(this,'g1-star')">Virgo</button>
-              <button class="pill" onclick="selectPill(this,'g1-star')">Libra</button>
-              <button class="pill" onclick="selectPill(this,'g1-star')">Scorpio</button>
-              <button class="pill" onclick="selectPill(this,'g1-star')">Sagittarius</button>
-              <button class="pill" onclick="selectPill(this,'g1-star')">Capricorn</button>
-              <button class="pill" onclick="selectPill(this,'g1-star')">Aquarius</button>
-              <button class="pill" onclick="selectPill(this,'g1-star')">Pisces</button>
-            </div>
-            <label class="field-label">Song request</label>
-            <div id="g1-song"><div class="song-row"><input type="text" placeholder="song &amp; artist..." /></div></div>
-          </div>
-
-        </div>
-
-        <div class="form-error" id="form-error"></div>
-        <button class="submit-btn" id="submit-rsvp-btn" onclick="submitRSVP()">Confirm RSVP</button>
-        </div><!-- /yes-rsvp-block -->
-      </div>
-
-      <div id="rsvp-thankyou" style="display:none;">
-        <div class="thankyou-wrap">
-          <div class="check-circle">✓</div>
-          <h2 class="section-title" style="color:var(--blue);">Thank you</h2>
-          <p id="thankyou-msg">Your RSVP has been received.</p>
-        </div>
-      </div>
-
-    </div>
   </div>
 
   <!-- INFO -->
