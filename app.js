@@ -31,7 +31,6 @@ window.addEventListener('scroll', () => {
 /* ---- GIFT PICKER ---- */
 
 // Payment handles. Update these to the real ones before launch.
-const PAYPAL_ME = 'https://paypal.me/YOUR-PAYPAL-HANDLE';
 const MONZO_ME  = 'https://monzo.me/robertjackbailey?h=0taTZk&account_type=joint';
 
 // Airtable: one row per gift claimed, written when a payment button is pressed.
@@ -126,7 +125,6 @@ function refreshGiftState() {
   const ready = !!selectedGift && name.length > 0;
 
   document.getElementById('gift-step-2').classList.toggle('done', name.length > 0);
-  document.getElementById('pay-paypal').disabled = !ready;
   document.getElementById('pay-monzo').disabled = !ready;
 
   const hint = document.getElementById('gift-pay-hint');
@@ -152,7 +150,7 @@ async function logGift(name, gift, method) {
         fields: {
           'Name': name,
           'Gift': gift.item,
-          'Method': method === 'monzo' ? 'Monzo' : 'PayPal'
+          'Method': 'Monzo'
         }
       })
     });
@@ -167,7 +165,7 @@ function payGift(method) {
   if (!selectedGift || !name) return;
 
   // Open first: browsers only allow this while the click is still being handled.
-  window.open(method === 'monzo' ? MONZO_ME : PAYPAL_ME, '_blank', 'noopener');
+  window.open(MONZO_ME, '_blank', 'noopener');
   logGift(name, selectedGift, method);
 
   const hint = document.getElementById('gift-pay-hint');
