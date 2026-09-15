@@ -493,34 +493,67 @@ nav {
 .giftpicker-eyebrow { display: block; font-family: 'DM Sans', sans-serif; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--pink); margin-bottom: 12px; }
 .giftpicker-intro { font-family: 'Courier Prime', monospace; font-size: 14px; color: #555; line-height: 1.8; margin-bottom: 28px; }
 
-/* Accordion */
-.gift-accordion { border-top: 1px solid var(--border); }
-.gift-row { border-bottom: 1px solid var(--border); transition: background 0.25s ease; }
-.gift-row.selected { background: rgba(43,53,175,0.04); }
+/* Postcards */
+.gift-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(248px, 1fr)); gap: 18px; }
 
-.gift-row-head {
-  width: 100%; display: flex; align-items: center; gap: 16px; padding: 18px 4px;
-  background: none; border: none; cursor: pointer; text-align: left; font: inherit; color: inherit;
+.postcard { perspective: 1400px; }
+.postcard-inner {
+  position: relative; min-height: 250px; height: 100%;
+  transform-style: preserve-3d; transition: transform 0.62s cubic-bezier(0.4, 0.15, 0.2, 1);
 }
-.gift-row-name { flex: 1; font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 400; color: var(--blue); line-height: 1.4; transition: opacity 0.2s; }
-.gift-row-price { font-family: 'Courier Prime', monospace; font-size: 13px; color: var(--pink); flex: 0 0 auto; }
-.gift-row-chevron { flex: 0 0 auto; width: 9px; height: 9px; border-right: 1px solid var(--muted); border-bottom: 1px solid var(--muted); transform: rotate(45deg) translate(-2px, -2px); transition: transform 0.3s ease; }
-.gift-row.open .gift-row-chevron { transform: rotate(-135deg) translate(-3px, -3px); }
-.gift-row-head:hover .gift-row-name { opacity: 0.6; }
+.postcard.flipped .postcard-inner { transform: rotateY(180deg); }
 
-/* 0fr -> 1fr gives a smooth height transition without measuring the content. */
-.gift-row-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.32s ease; }
-.gift-row.open .gift-row-panel { grid-template-rows: 1fr; }
-.gift-row-panel-inner { overflow: hidden; }
-.gift-row-body { padding: 0 4px 22px; }
-.gift-row-blurb { font-family: 'Courier Prime', monospace; font-size: 13px; font-style: italic; color: #888; line-height: 1.8; margin-bottom: 18px; }
-.gift-row-pick {
-  padding: 12px 28px; background: var(--blue); color: white; border: 1px solid var(--blue);
-  font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+.postcard-face {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  display: flex; flex-direction: column; align-items: flex-start; text-align: left;
+  padding: 20px; background: white; border: 1px solid var(--border);
+  box-shadow: 2px 2px 0 rgba(43,53,175,0.07);
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.postcard.selected .postcard-face { border-color: var(--blue); box-shadow: 3px 3px 0 var(--blue); }
+
+/* Front: stamp, title, where it goes wrong, and the prompt to turn it over. */
+.pc-front { font: inherit; color: inherit; cursor: pointer; }
+.pc-front:hover { box-shadow: 3px 3px 0 rgba(43,53,175,0.16); }
+.pc-stamp {
+  align-self: flex-end; width: 46px; height: 52px; margin-bottom: 16px;
+  display: flex; align-items: center; justify-content: center; font-size: 24px; line-height: 1;
+  border: 1px dashed rgba(43,53,175,0.35); background: var(--cream); transform: rotate(3deg);
+}
+.pc-title { font-family: 'Bodoni Moda', serif; font-size: 20px; line-height: 1.25; color: var(--blue); }
+.pc-location {
+  font-family: 'Courier Prime', monospace; font-size: 11px; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--pink); margin-top: 9px;
+}
+.pc-rule { width: 100%; border-top: 1px dashed var(--border); margin: auto 0 12px; }
+.pc-cta { font-family: 'DM Sans', sans-serif; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
+.pc-front:hover .pc-cta { color: var(--blue); }
+
+/* Back: the message side, handwritten. */
+.pc-back { transform: rotateY(180deg); background: var(--cream); justify-content: space-between; }
+.pc-postmark {
+  align-self: flex-end; width: 38px; height: 38px; border-radius: 50%; border: 1px dashed rgba(43,53,175,0.3);
+  display: flex; align-items: center; justify-content: center; font-size: 17px; opacity: 0.75; transform: rotate(-8deg);
+}
+.pc-blurb { font-family: 'Caveat', cursive; font-size: 23px; line-height: 1.4; color: var(--blue); margin: 10px 0; }
+.pc-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; width: 100%; }
+.pc-pick {
+  padding: 11px 22px; background: var(--blue); color: white; border: 1px solid var(--blue);
+  font-family: 'DM Sans', sans-serif; font-size: 9px; letter-spacing: 3px; text-transform: uppercase;
   cursor: pointer; transition: background 0.2s, color 0.2s;
 }
-.gift-row-pick:hover { background: var(--blue-mid); }
-.gift-row.selected .gift-row-pick { background: none; color: var(--blue); cursor: default; }
+.pc-pick:hover { background: var(--blue-mid); }
+.postcard.selected .pc-pick { background: none; color: var(--blue); cursor: default; }
+.pc-return {
+  background: none; border: none; padding: 0; cursor: pointer;
+  font-family: 'Courier Prime', monospace; font-size: 11px; font-style: italic; color: var(--muted);
+}
+.pc-return:hover { color: var(--blue); }
+
+@media (prefers-reduced-motion: reduce) {
+  .postcard-inner { transition: none; }
+}
 
 /* Checkout */
 .gift-checkout { margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--border); }
@@ -535,7 +568,6 @@ nav {
 .gift-step-label { display: block; font-family: 'DM Sans', sans-serif; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
 .gift-step-value { font-family: 'Bodoni Moda', serif; font-size: 19px; color: var(--blue); line-height: 1.35; }
 .gift-step-value.empty { font-family: 'Courier Prime', monospace; font-size: 13px; font-style: italic; color: #aaa; }
-.gift-step-value .gift-step-amount { font-family: 'Courier Prime', monospace; font-size: 13px; color: var(--pink); margin-left: 8px; }
 
 #gift-name {
   width: 100%; padding: 12px 0; background: none; border: none; border-bottom: 1px solid var(--border);
@@ -559,7 +591,9 @@ nav {
 @media (max-width: 768px) {
   .giftpicker { padding: 28px 20px; }
   .giftpicker-title { font-size: 25px; }
-  .gift-row-name { font-size: 15px; }
+  .gift-cards { grid-template-columns: 1fr; gap: 14px; }
+  .postcard-inner { min-height: 232px; }
+  .pc-title { font-size: 19px; }
   .gift-pay-btn { flex: 1 1 100%; }
 }
 
