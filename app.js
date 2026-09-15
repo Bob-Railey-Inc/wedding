@@ -36,7 +36,7 @@ const MONZO_ME  = 'https://monzo.me/YOUR-MONZO-HANDLE';
 
 // Airtable: one row per gift claimed, written when a payment button is pressed.
 // The table needs text fields Name, Gift, Method and a number field Amount.
-const AIRTABLE_TOKEN = 'YOUR_AIRTABLE_PAT';
+const AIRTABLE_TOKEN = 'patXdBwjorqFnrFOA.16ecf57ae58f4d0fbc08d1f8ec6b7a81f7d952f8d3400f46be788c93209291cc';
 const AIRTABLE_BASE  = 'appkOCg0RLlb00Xfj';
 const AIRTABLE_TABLE = 'Gifts';
 
