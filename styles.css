@@ -487,73 +487,80 @@ nav {
 .gift-note { font-family: 'Courier Prime', monospace; font-size: 12px; color: #aaa; margin-top: 12px; font-style: italic; }
 .gift-soon { font-family: 'Courier Prime', monospace; font-size: 12px; color: #aaa; font-style: italic; margin-top: 0; }
 
-/* GIFT ROULETTE */
-.roulette { background: #fff6e0; border: 3px solid #2f1b0e; padding: 40px; margin-bottom: 20px; transform: rotate(-0.6deg); box-shadow: 6px 6px 0 #ff2e88; text-align: center; }
-.roulette-title { font-family: 'DM Sans', sans-serif; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; color: #f25c1e; text-transform: uppercase; text-shadow: 2px 2px 0 #ffc233; margin-bottom: 14px; }
-.roulette-intro { font-family: 'Courier Prime', monospace; font-size: 14px; color: #6b4a2a; line-height: 1.8; margin-bottom: 28px; }
-/* Only the right half of the wheel shows: its centre sits on the left edge of the window. */
-.roulette-stage { display: flex; flex-direction: column; align-items: center; gap: 30px; margin-bottom: 4px; }
-/* nudged by half the button's overhang so wheel + button sit centred together */
-.wheel-slot { position: relative; flex: 0 0 auto; transform: translateX(-57px); --disc: 440px; --edge: 7px; --flare: 16px; }
-/* The cut edge: the same wedge, grown outwards, showing through as a dark border. */
-.wheel-slot::before {
-  content: ''; position: absolute; z-index: 0; background: #2f1b0e;
-  inset: calc(var(--flare) * -1) calc(var(--edge) * -1);
-  clip-path: polygon(0 50%, 100% 0, 100% 100%);
-  -webkit-mask: radial-gradient(circle at var(--edge) 50%, #000 0 calc(var(--disc) + var(--edge)), transparent calc(var(--disc) + var(--edge) + 1px));
-          mask: radial-gradient(circle at var(--edge) 50%, #000 0 calc(var(--disc) + var(--edge)), transparent calc(var(--disc) + var(--edge) + 1px));
+/* GIFT PICKER */
+.giftpicker { background: white; border: 1px solid rgba(43,53,175,0.1); padding: 40px; margin-bottom: 20px; box-shadow: 3px 3px 0 var(--blue); }
+.giftpicker-title { font-family: 'Bodoni Moda', serif; font-size: 30px; font-weight: 400; color: var(--blue); line-height: 1.2; margin-bottom: 12px; }
+.giftpicker-eyebrow { display: block; font-family: 'DM Sans', sans-serif; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--pink); margin-bottom: 12px; }
+.giftpicker-intro { font-family: 'Courier Prime', monospace; font-size: 14px; color: #555; line-height: 1.8; margin-bottom: 28px; }
+
+/* Accordion */
+.gift-accordion { border-top: 1px solid var(--border); }
+.gift-row { border-bottom: 1px solid var(--border); transition: background 0.25s ease; }
+.gift-row.selected { background: rgba(43,53,175,0.04); }
+
+.gift-row-head {
+  width: 100%; display: flex; align-items: center; gap: 16px; padding: 18px 4px;
+  background: none; border: none; cursor: pointer; text-align: left; font: inherit; color: inherit;
 }
-/* A wedge cut out of the card: apex on the wheel's hub, opening out to the rim. */
-.wheel-wrap {
-  position: relative; z-index: 1; width: 445px; height: 640px; overflow: hidden;
-  clip-path: polygon(0 50%, 100% 0, 100% 100%);
+.gift-row-name { flex: 1; font-family: 'DM Sans', sans-serif; font-size: 16px; font-weight: 400; color: var(--blue); line-height: 1.4; transition: opacity 0.2s; }
+.gift-row-price { font-family: 'Courier Prime', monospace; font-size: 13px; color: var(--pink); flex: 0 0 auto; }
+.gift-row-chevron { flex: 0 0 auto; width: 9px; height: 9px; border-right: 1px solid var(--muted); border-bottom: 1px solid var(--muted); transform: rotate(45deg) translate(-2px, -2px); transition: transform 0.3s ease; }
+.gift-row.open .gift-row-chevron { transform: rotate(-135deg) translate(-3px, -3px); }
+.gift-row-head:hover .gift-row-name { opacity: 0.6; }
+
+/* 0fr -> 1fr gives a smooth height transition without measuring the content. */
+.gift-row-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.32s ease; }
+.gift-row.open .gift-row-panel { grid-template-rows: 1fr; }
+.gift-row-panel-inner { overflow: hidden; }
+.gift-row-body { padding: 0 4px 22px; }
+.gift-row-blurb { font-family: 'Courier Prime', monospace; font-size: 13px; font-style: italic; color: #888; line-height: 1.8; margin-bottom: 18px; }
+.gift-row-pick {
+  padding: 12px 28px; background: var(--blue); color: white; border: 1px solid var(--blue);
+  font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  cursor: pointer; transition: background 0.2s, color 0.2s;
 }
-#wheel {
-  position: absolute; top: 50%; left: 0; width: 880px; height: 880px;
-  transform: translate(-50%, -50%); border-radius: 50%;
+.gift-row-pick:hover { background: var(--blue-mid); }
+.gift-row.selected .gift-row-pick { background: none; color: var(--blue); cursor: default; }
+
+/* Checkout */
+.gift-checkout { margin-top: 32px; padding-top: 28px; border-top: 1px solid var(--border); }
+.gift-step { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 22px; }
+.gift-step-num {
+  flex: 0 0 auto; width: 24px; height: 24px; border: 1px solid var(--border); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; margin-top: 2px;
+  font-family: 'Courier Prime', monospace; font-size: 11px; color: var(--muted); transition: all 0.25s ease;
 }
-.spin-btn {
-  position: absolute; top: 50%; left: calc(100% + 18px); transform: translateY(-50%); z-index: 3;
-  background: #ff2e88; color: #fff6e0; border: 3px solid #2f1b0e; border-radius: 999px;
-  padding: 16px 24px; cursor: pointer; box-shadow: 4px 4px 0 #2f1b0e;
-  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 2px;
-  text-transform: uppercase; white-space: nowrap; transition: transform 0.12s, background 0.2s;
+.gift-step.done .gift-step-num { background: var(--blue); border-color: var(--blue); color: white; }
+.gift-step-body { flex: 1; min-width: 0; }
+.gift-step-label { display: block; font-family: 'DM Sans', sans-serif; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.gift-step-value { font-family: 'Bodoni Moda', serif; font-size: 19px; color: var(--blue); line-height: 1.35; }
+.gift-step-value.empty { font-family: 'Courier Prime', monospace; font-size: 13px; font-style: italic; color: #aaa; }
+.gift-step-value .gift-step-amount { font-family: 'Courier Prime', monospace; font-size: 13px; color: var(--pink); margin-left: 8px; }
+
+#gift-name {
+  width: 100%; padding: 12px 0; background: none; border: none; border-bottom: 1px solid var(--border);
+  font-family: 'Bodoni Moda', serif; font-size: 19px; color: var(--blue); outline: none; transition: border-color 0.2s;
 }
-.spin-btn::before {
-  content: ''; position: absolute; left: -22px; top: 50%; transform: translateY(-50%);
-  border-top: 13px solid transparent; border-bottom: 13px solid transparent;
-  border-right: 22px solid #2f1b0e;
+#gift-name::placeholder { font-family: 'Courier Prime', monospace; font-size: 13px; font-style: italic; color: #ccc; }
+#gift-name:focus { border-bottom-color: var(--blue); }
+
+.gift-pay { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+.gift-pay-btn {
+  flex: 1 1 160px; padding: 16px 24px; border: 1px solid var(--blue); background: var(--blue); color: white;
+  font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+  cursor: pointer; transition: background 0.2s, opacity 0.2s;
 }
-.spin-btn:hover:not(:disabled) { background: #ff5ea3; transform: translateY(-50%) scale(1.05) rotate(-2deg); }
-.spin-btn:active:not(:disabled) { transform: translateY(-50%) scale(0.97); box-shadow: 2px 2px 0 #2f1b0e; }
-.spin-btn:disabled { cursor: not-allowed; background: #f2b705; color: #2f1b0e; }
-.roulette-panel { width: 100%; max-width: 460px; text-align: left; }
-.roulette-result { margin-top: 22px; min-height: 10px; }
-.result-card { background: #ffffff; border: 3px solid #2f1b0e; box-shadow: 4px 4px 0 #00a9a5; padding: 26px 22px; animation: resultIn 0.45s ease-out; }
-@keyframes resultIn { from { opacity: 0; transform: translateY(10px) scale(0.97); } to { opacity: 1; transform: none; } }
-.result-eyebrow { font-family: 'DM Sans', sans-serif; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: #00a9a5; margin-bottom: 10px; }
-.result-item { font-family: 'Bodoni Moda', serif; font-size: 24px; line-height: 1.3; color: var(--blue); margin-bottom: 6px; }
-.result-price { font-family: 'Courier Prime', monospace; font-size: 13px; color: #f25c1e; margin-bottom: 8px; }
-.result-blurb { font-family: 'Courier Prime', monospace; font-size: 12px; color: #777; font-style: italic; line-height: 1.7; margin-bottom: 20px; }
-.result-actions { display: flex; gap: 12px; flex-wrap: wrap; }
-.respin-btn {
-  padding: 14px 26px; background: none; border: 1px solid rgba(43,53,175,0.3); color: var(--blue);
-  font-family: 'DM Sans', sans-serif; font-size: 10px; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: background 0.2s;
-}
-.respin-btn:hover { background: rgba(43,53,175,0.06); }
-.roulette-smallprint { font-family: 'Courier Prime', monospace; font-size: 12px; color: #aaa; font-style: italic; margin-top: 22px; line-height: 1.7; }
+.gift-pay-btn.secondary { background: none; color: var(--blue); }
+.gift-pay-btn:hover:not(:disabled) { background: var(--blue-mid); color: white; }
+.gift-pay-btn:disabled { opacity: 0.25; cursor: not-allowed; }
+.gift-pay-hint { font-family: 'Courier Prime', monospace; font-size: 12px; color: #aaa; font-style: italic; margin-top: 16px; line-height: 1.7; }
+.gift-pay-hint.done { color: var(--blue); font-style: normal; }
 
 @media (max-width: 768px) {
-  .roulette { padding: 28px 20px; }
-  .result-item { font-size: 20px; }
-  /* only the wheel row spills into the card's padding; the text keeps it */
-  .roulette-stage { gap: 26px; margin: 0 -14px; }
-  /* As big as the card allows once the pointer button has its space. */
-  .wheel-slot { transform: translateX(-37px); --disc: min(240px, calc(100vw - 153px)); --edge: 5px; --flare: 10px; }
-  .wheel-wrap { width: calc(var(--disc) + 5px); height: calc(var(--disc) * 1.45); }
-  #wheel { width: calc(var(--disc) * 2); height: calc(var(--disc) * 2); }
-  .spin-btn { padding: 10px 12px; font-size: 11px; left: calc(100% + 8px); }
-  .roulette-panel { max-width: none; }
+  .giftpicker { padding: 28px 20px; }
+  .giftpicker-title { font-size: 25px; }
+  .gift-row-name { font-size: 15px; }
+  .gift-pay-btn { flex: 1 1 100%; }
 }
 
 /* INFO */

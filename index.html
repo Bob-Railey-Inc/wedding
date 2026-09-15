@@ -117,27 +117,38 @@
       <div class="divider"></div>
       <div class="gift-card">
         <p>Honestly we are just excited to spend the day with you but if you'd like to make a small contribution to our honeymoon fund to Thailand and Australia that would be majorly appreciated.</p>
-        <p class="gift-soon">More details to be shared closer to the time.</p>
       </div>
 
-      <div class="roulette">
-        <div class="roulette-title">Spin the honeymoon wheel</div>
-        <p class="roulette-intro">Can't decide what to give? Don't. Let fate assign you one very specific piece of our honeymoon. No refunds, no swaps, no negotiating with the wheel.</p>
+      <div class="giftpicker">
+        <span class="giftpicker-eyebrow">Optional, and slightly silly</span>
+        <h3 class="giftpicker-title">Pick a piece of the honeymoon</h3>
+        <p class="giftpicker-intro">Rather than a list of toasters, here are the actual things we'll be doing in Thailand and Australia. Have a look, claim one, and we'll think of you while we do it.</p>
 
-        <div class="roulette-stage">
-          <div class="wheel-slot">
-            <div class="wheel-wrap">
-              <canvas id="wheel" width="900" height="900" aria-label="Honeymoon gift roulette wheel"></canvas>
+        <div class="gift-accordion" id="gift-accordion"></div>
+
+        <div class="gift-checkout">
+          <div class="gift-step" id="gift-step-1">
+            <span class="gift-step-num">1</span>
+            <div class="gift-step-body">
+              <span class="gift-step-label">Your gift</span>
+              <span class="gift-step-value empty" id="gift-chosen" aria-live="polite">Nothing chosen yet</span>
             </div>
-            <button class="spin-btn" id="spin-btn" onclick="spinWheel()">Spin!</button>
           </div>
 
-          <div class="roulette-panel">
-            <div class="roulette-result" id="roulette-result" aria-live="polite"></div>
+          <div class="gift-step" id="gift-step-2">
+            <span class="gift-step-num">2</span>
+            <div class="gift-step-body">
+              <label class="gift-step-label" for="gift-name">Your name</label>
+              <input id="gift-name" type="text" autocomplete="name" placeholder="So we know who to thank" />
+            </div>
           </div>
+
+          <div class="gift-pay">
+            <button class="gift-pay-btn" id="pay-paypal" disabled onclick="payGift('paypal')">Pay with PayPal</button>
+            <button class="gift-pay-btn secondary" id="pay-monzo" disabled onclick="payGift('monzo')">Pay with Monzo</button>
+          </div>
+          <p class="gift-pay-hint" id="gift-pay-hint" aria-live="polite">Choose a gift and add your name to unlock the payment buttons.</p>
         </div>
-
-        <p class="roulette-smallprint">Entirely optional, mildly ridiculous, and genuinely appreciated. The wheel is not legally binding.</p>
       </div>
     </div>
   </div>
