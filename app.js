@@ -32,7 +32,7 @@ window.addEventListener('scroll', () => {
 
 // Payment handles. Update these to the real ones before launch.
 const PAYPAL_ME = 'https://paypal.me/YOUR-PAYPAL-HANDLE';
-const MONZO_ME  = 'https://monzo.me/YOUR-MONZO-HANDLE';
+const MONZO_ME  = 'https://monzo.me/robertjackbailey?h=0taTZk&account_type=joint';
 
 // Airtable: one row per gift claimed, written when a payment button is pressed.
 // The table needs text fields Name, Gift, Method and a number field Amount.
