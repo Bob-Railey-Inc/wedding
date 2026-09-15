@@ -132,7 +132,7 @@ function refreshGiftState() {
   const hint = document.getElementById('gift-pay-hint');
   hint.classList.toggle('done', ready);
   if (ready) {
-    hint.textContent = 'All set. Send whatever feels right — the amount is entirely up to you.';
+    hint.textContent = '';
   } else if (!selectedGift) {
     hint.textContent = 'Choose a gift and add your name to unlock the payment buttons.';
   } else {
