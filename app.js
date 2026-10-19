@@ -118,8 +118,31 @@ function chooseGift(i) {
   if (!document.getElementById('gift-name').value.trim()) {
     document.getElementById('gift-name').focus({ preventScroll: true });
   }
-  // Pin the checkout to the top so it stays visible above the phone keyboard
-  document.querySelector('.gift-checkout').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  scrollToCheckout();
+}
+
+// Pin the checkout to the top so it stays visible above the phone keyboard.
+// It sits near the end of the page, so pad the bottom if there isn't room to scroll that far,
+// and redo it once the keyboard has finished resizing the viewport.
+function scrollToCheckout() {
+  const checkout = document.querySelector('.gift-checkout');
+  const pin = () => {
+    const target = checkout.getBoundingClientRect().top + window.scrollY;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    if (target > maxScroll) {
+      const pad = parseFloat(document.body.style.paddingBottom) || 0;
+      document.body.style.paddingBottom = (pad + target - maxScroll) + 'px';
+    }
+    window.scrollTo({ top: target, behavior: 'smooth' });
+  };
+  pin();
+
+  const vv = window.visualViewport;
+  if (!vv) return;
+  let timer;
+  const onResize = () => { clearTimeout(timer); timer = setTimeout(pin, 150); };
+  vv.addEventListener('resize', onResize);
+  setTimeout(() => vv.removeEventListener('resize', onResize), 1500);
 }
 
 function refreshGiftState() {
