@@ -118,6 +118,8 @@ function chooseGift(i) {
   if (!document.getElementById('gift-name').value.trim()) {
     document.getElementById('gift-name').focus({ preventScroll: true });
   }
+  // Pin the checkout to the top so it stays visible above the phone keyboard
+  document.querySelector('.gift-checkout').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function refreshGiftState() {
